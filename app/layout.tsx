@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Cheddar",
   description: "Cheddar is a modern banking platform for everyone.",
   icons: {
-    icon: '/icons/logo.svg'
+    icon: '/icons/logo.png'
   }
 };
 
