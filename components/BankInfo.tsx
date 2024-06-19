@@ -37,7 +37,7 @@ const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps) => {
       })}
     >
       <figure
-        className={`flex-center h-fit rounded-full bg-blue-100 ${colors.lightBg}`}
+        className={`flex-center h-fit rounded-full bg-[#FBCB2A] ${colors.lightBg}`}
       >
         <Image
           src="/icons/connect-bank.svg"

@@ -4,11 +4,13 @@ import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-
 import { useRouter } from 'next/navigation';
 import { createLinkToken, exchangePublicToken } from '@/lib/actions/user.actions';
 import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
 
   const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const getLinkToken = async () => {
@@ -21,13 +23,18 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   }, [user]);
 
   const onSuccess = useCallback<PlaidLinkOnSuccess>(async (public_token: string) => {
-    await exchangePublicToken({
-      publicToken: public_token,
-      user,
-    })
-
-    router.push('/');
-  }, [user])
+    setLoading(true);
+    try {
+      await exchangePublicToken({
+        publicToken: public_token,
+        user,
+      });
+      router.push('/');
+    } catch (error) {
+      console.error('Error during token exchange or navigation', error);
+      setLoading(false); // Reset loading state in case of error
+    }
+  }, [user, router]);
   
   const config: PlaidLinkOptions = {
     token,
@@ -44,7 +51,13 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
           disabled={!ready}
           className="plaidlink-primary"
         >
-          Connect bank
+          {loading ?( 
+                <>
+                  <Loader2 size={20} className="animate-spin" /> &nbsp;
+                        Loading...
+                 </>      
+                    ) : 'Connect bank'
+          }
         </Button>
       ): variant === 'ghost' ? (
         <Button onClick={() => open()} variant="ghost" className="plaidlink-ghost">

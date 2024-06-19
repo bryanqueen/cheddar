@@ -4,6 +4,7 @@ import { BankTabItem } from './BankTabItem'
 import BankInfo from './BankInfo'
 import TransactionsTable from './TransactionsTable'
 import { Pagination } from './Pagination'
+import TransactionsTableOverview from './TransactionsTableOverview'
 
 const RecentTransactions = ({
   accounts,
@@ -58,7 +59,7 @@ const RecentTransactions = ({
               type="full"
             />
 
-            <TransactionsTable transactions={currentTransactions} />
+            <TransactionsTableOverview transactions={currentTransactions} />
             
 
             {totalPages > 1 && (
