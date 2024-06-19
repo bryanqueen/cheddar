@@ -37,7 +37,7 @@ const AuthForm = ({ type }: { type: string }) => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     setGeneralError(null);
-
+  
     try {
       if (type === 'sign-up') {
         const userData = {
@@ -52,27 +52,27 @@ const AuthForm = ({ type }: { type: string }) => {
           email: data.email,
           password: data.password,
         };
-
+  
         const newUser = await signUp(userData);
         setUser(newUser);
       }
-
+  
       if (type === 'sign-in') {
         const response = await signIn({
           email: data.email,
           password: data.password,
         });
-
+  
         if (response) router.push('/');
       }
     } catch (error: any) {
       console.error('Error:', error);
       console.log('Error response message:', error.response?.message);
       setGeneralError(error.response?.message || 'An unexpected error occurred');
-    } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <section className="auth-form">
@@ -127,9 +127,9 @@ const AuthForm = ({ type }: { type: string }) => {
               <CustomInput control={form.control} name="password" label="Password" placeholder="Enter your password" />
 
               {generalError && (
-                <FormMessage className="text-red-500 mt-2">
+                <div className="text-red-500 mt-2">
                   {generalError}
-                </FormMessage>
+                </div>
               )}
 
               <div className="flex flex-col gap-4">
