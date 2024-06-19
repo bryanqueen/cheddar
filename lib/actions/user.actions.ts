@@ -49,8 +49,10 @@ export const signIn = async ({ email, password }: signInProps) => {
     return parseStringify(user);
   } catch (error) {
     console.error('Error', error);
+    throw error; // Rethrow the error
   }
 }
+
 
 export const signUp = async ({ password, ...userData }: SignUpParams) => {
   const { email, firstName, lastName } = userData;
@@ -102,8 +104,10 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
     return parseStringify(newUser);
   } catch (error) {
     console.error('Error', error);
+    throw error; // Rethrow the error
   }
 }
+
 
 export async function getLoggedInUser() {
   try {
